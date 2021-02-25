@@ -1,22 +1,25 @@
 <script lang="ts">
-	import Nav from '../components/Nav.svelte';
+  import Nav from '../components/Nav.svelte';
+  import { MaterialApp } from 'svelte-materialify';
+  import { Button } from 'svelte-materialify';
 
-	export let segment: string;
+  let theme: 'light' | 'dark' = 'light';
+  let isClicked = false;
+
+  export let segment: string;
+  const handleClick = () => {
+    isClicked = !isClicked;
+  };
 </script>
 
+<MaterialApp {theme}>
+  <Nav {segment} />
+  <slot />
+  <Button on:click={handleClick}>Click Me</Button>
+  {#if isClicked}
+    <h1>First Click</h1>
+  {/if}
+</MaterialApp>
+
 <style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
 </style>
-
-<Nav {segment}/>
-
-<main>
-	<slot></slot>
-</main>
